@@ -14,7 +14,71 @@ This project is maintained [Ben](https://github.com/barundel), anyone is welcome
 
 ## Getting Started
 
+#### Multiple Sages
+`count = length(var.resource_path_part) > 0 ? 1 : 0` Controls if to create new methods, need to detail this.
+
 TODO: Example 
+
+#### Complete Example
+
+````
+module "api_gateway" {
+  source = "../../terraform-aws-apigateway/rest_api"
+
+  rest_api_name = "API-Terraform-Test"
+  rest_api_description = "Building API with terraform"
+}
+
+module "api_resource" {
+  source = "../../terraform-aws-apigateway/resource"
+
+  resource_rest_api_id = module.api_gateway.rest_api_id
+  resource_parent_id = module.api_gateway.rest_api_root_resource_id
+
+  resource_path_part = "api"
+
+}
+
+module "products_dev" {
+  source = "../../terraform-aws-apigateway/method-config"
+  rest_api_id = module.api_gateway.rest_api_id
+
+  resource_parent_id = module.api_resource.resource_id
+  resource_path_part = "products"
+
+  authorization = "NONE"
+
+  stage_name = "dev"
+
+  http_method = "GET"
+  integration_http_method = "POST"
+  type = "AWS_PROXY"
+  uri = "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:accountnumber:function:functionname/invocations"
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+
+}
+
+module "products_live" {
+  source = "../../terraform-aws-apigateway/method-config"
+  rest_api_id = module.api_gateway.rest_api_id
+
+  resource_parent_id = module.api_resource.resource_id
+  resource_id = module.products.resource_id
+  authorization = "NONE"
+
+  stage_name = "uat"
+
+  http_method = "GET"
+  integration_http_method = "POST"
+  type = "AWS_PROXY"
+  uri = "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:accountnnumber:function:functionname/invocations"
+
+}
+````
 
 ## License
 

@@ -1,8 +1,3 @@
-variable "resource_id" {
-  default = ""
-  description = "The API resource ID"
-}
-
 variable "resource_http_method" {
   default = ""
   description = "The HTTP method (GET, POST, PUT, DELETE, HEAD, OPTION, ANY) when calling the associated resource"
@@ -43,11 +38,6 @@ variable "request_templates" {
   description = "A map of the integration's request templates."
 }
 
-variable "request_parameters" {
-  default = {}
-  description = "A map of request query string parameters and headers that should be passed to the backend responder. For example: request_parameters = { integration.request.header.X-Some-Other-Header = method.request.header.X-Some-Header }"
-}
-
 variable "passthrough_behavior" {
   default = ""
   description = "The integration passthrough behavior (WHEN_NO_MATCH, WHEN_NO_TEMPLATES, NEVER). Required if request_templates is used."
@@ -71,11 +61,6 @@ variable "content_handling" {
 variable "timeout_milliseconds" {
   default = "29,000"
   description = "Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds."
-}
-
-variable "rest_api_id" {
-  default = ""
-  description = "The ID of the associated REST API"
 }
 
 variable "stage_name" {
@@ -149,12 +134,88 @@ variable "resource_method_resource_id" {
   description = "The ID of the parent API resource"
 }
 
-variable "http_method" {
-  default = ""
-  description = "The HTTP Method (GET, POST, PUT, DELETE, HEAD, OPTIONS, ANY)"
+###### ###### ###### ######
+#     Method Vars         #
+###### ###### ###### ######
+variable "authorization" {
+  description = "The type of authorization used for the method (NONE, CUSTOM, AWS_IAM, COGNITO_USER_POOLS). Required."
 }
 
-variable "authorization" {
-  default = ""
-  description = "The type of authorization used for the method (NONE, CUSTOM, AWS_IAM, COGNITO_USER_POOLS)"
+variable "http_method" {
+  description = "The HTTP Method (GET, POST, PUT, DELETE, HEAD, OPTIONS, ANY). Required."
 }
+
+variable "resource_id" {
+  default = ""
+  description = "ID of the resource you want to link the method to"
+}
+
+variable "authorizer_id" {
+  default = ""
+  description = "The authorizer id to be used when the authorization is CUSTOM or COGNITO_USER_POOLS"
+}
+
+variable "authorization_scopes" {
+  default = []
+  description = "The authorization scopes used when the authorization is COGNITO_USER_POOLS"
+}
+
+variable "api_key_required" {
+  default = null
+  description = "Specify if the method requires an API key"
+}
+
+variable "request_models" {
+  default = {}
+  description = "A map of the API models used for the request's content type where key is the content type (e.g. application/json) and value is either Error, Empty (built-in models) or aws_api_gateway_model's name."
+}
+
+variable "request_validator_id" {
+  default = ""
+  description = "The ID of a aws_api_gateway_request_validator"
+}
+
+variable "request_parameters" {
+  default = {}
+  description = "A map of request parameters (from the path, query string and headers) that should be passed to the integration. The boolean value indicates whether the parameter is required (true) or optional (false). For example: request_parameters = {method.request.header.X-Some-Header = true method.request.querystring.some-query-param = true} would define that the header X-Some-Header and the query string some-query-param must be provided in the request."
+}
+
+###### ###### ###### ######
+#     Shared Vars         #
+###### ###### ###### ######
+variable "rest_api_id" {
+  default = ""
+  description = "The ID of the associated REST API"
+}
+
+###### ###### ###### ######
+#     Resource Vars       #
+###### ###### ###### ######
+variable "resource_parent_id" {
+  default = ""
+  description = "The ID of the parent API resource"
+}
+
+variable "resource_path_part" {
+  default = ""
+  description = "The last path segment of this API resource"
+}
+
+###### ###### ###### ######
+#   Method Response Vars  #
+###### ###### ###### ######
+variable "response_parameters" {
+  default = {}
+  description = "A map of response parameters that can be sent to the caller. For example: response_parameters = { method.response.header.X-Some-Header = true } would define that the header X-Some-Header can be provided on the response"
+}
+
+variable "response_models" {
+  default = {}
+  description = "A map of the API models used for the response's content type"
+}
+
+variable "method_reseponse_status_code" {
+  default = "200"
+  description = "The HTTP status code, default 200"
+}
+
