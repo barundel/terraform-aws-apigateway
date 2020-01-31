@@ -80,6 +80,9 @@ module "products_live" {
 }
 ````
 
+<!--- BEGIN_TF_DOCS --->
+<!--- END_TF_DOCS --->
+
 ## License
 
 Licensed under the Apache License, Version 2.0 (the "License");
