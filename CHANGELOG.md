@@ -1,5 +1,12 @@
 All notable changes to this terraform will be documented in this file.
 
+## [1.0.1](https://github.com/barundel/terraform-aws-apigateway/compare/v1.0.0...v1.0.1) (2020-01-31)
+
+
+### Bug Fixes
+
+* tidyup of the workflow ([253694c](https://github.com/barundel/terraform-aws-apigateway/commit/253694ce914f36675216e02b5e2ffb9955bc7c21))
+
 # 1.0.0 (2020-01-16)
 
 
