@@ -58,7 +58,3 @@ resource "aws_api_gateway_integration" "integration" {
   type                    = var.type
   uri                     = var.uri
 }
-
-
-
-

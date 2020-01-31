@@ -9,6 +9,21 @@ on:
       - master
 
 jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Render terraform docs inside the README.md and push changes back to PR branch
+        uses: Dirrk/terraform-docs@v1.0.6
+        with:
+          tf_docs_working_dir: .
+          tf_docs_output_file: README.md
+          tf_docs_output_method: inject
+          tf_docs_git_push: 'true'
+          tf_docs_git_commit_message: 'terraform-docs: automated action'
   build:
     runs-on: ubuntu-latest
     steps:
@@ -19,6 +34,7 @@ jobs:
         id: semantic   # Need an `id` for output variables
         with:
           branch: master
+          semantic_version: 17.0.1
           extra_plugins: |
             @semantic-release/git
             @semantic-release/changelog@3.0.0
