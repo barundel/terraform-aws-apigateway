@@ -1,5 +1,13 @@
 All notable changes to this terraform will be documented in this file.
 
+## [1.0.2](https://github.com/barundel/terraform-aws-apigateway/compare/v1.0.1...v1.0.2) (2020-02-03)
+
+
+### Bug Fixes
+
+* adding tf docs generation support for readme ([77b021a](https://github.com/barundel/terraform-aws-apigateway/commit/77b021a37d0c928c7d2b6c9f9efb97f53536e9bc))
+* updaitng the method-configs outputs ([1a54169](https://github.com/barundel/terraform-aws-apigateway/commit/1a54169779f4625d11ad664c70172b390f7471b9))
+
 ## [1.0.1](https://github.com/barundel/terraform-aws-apigateway/compare/v1.0.0...v1.0.1) (2020-01-31)
 
 
