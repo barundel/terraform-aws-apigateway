@@ -1,5 +1,12 @@
 All notable changes to this terraform will be documented in this file.
 
+## [1.1.1](https://github.com/barundel/terraform-aws-apigateway/compare/v1.1.0...v1.1.1) (2020-02-06)
+
+
+### Bug Fixes
+
+* removing breaking counts ([5524330](https://github.com/barundel/terraform-aws-apigateway/commit/55243308f04b5be96f9363cabe5568d932e20cdd))
+
 # [1.1.0](https://github.com/barundel/terraform-aws-apigateway/compare/v1.0.2...v1.1.0) (2020-02-06)
 
 
