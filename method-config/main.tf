@@ -12,7 +12,7 @@ resource "aws_api_gateway_resource" "resource" {
 
 // aws_api_gateway_method
 resource "aws_api_gateway_method" "method" {
-  count = length(var.resource_path_part) > 0 ? 1 : 0
+  //count = length(var.resource_path_part) > 0 ? 1 : 0
 
   rest_api_id   = var.rest_api_id
   resource_id   = local.resource_id[0]
@@ -31,7 +31,7 @@ resource "aws_api_gateway_method" "method" {
 }
 
 resource "aws_api_gateway_method_response" "method_response" {
-  count = length(var.resource_path_part) > 0 ? 1 : 0
+  //count = length(var.resource_path_part) > 0 ? 1 : 0
 
   http_method = var.http_method
   resource_id = local.resource_id[0]
@@ -57,4 +57,22 @@ resource "aws_api_gateway_integration" "integration" {
   integration_http_method = var.integration_http_method
   type                    = var.type
   uri                     = var.uri
+}
+
+resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
+  rest_api_id             = var.rest_api_id
+  resource_id             = local.resource_id[0]
+  http_method             = var.http_method
+  status_code = var.method_reseponse_status_code
+
+  # Transforms the backend JSON response to XML
+  response_templates = {
+    "application/xml" = <<EOF
+#set($inputRoot = $input.path('$'))
+<?xml version="1.0" encoding="UTF-8"?>
+<message>
+    $inputRoot.body
+</message>
+EOF
+  }
 }

@@ -219,3 +219,15 @@ variable "method_reseponse_status_code" {
   description = "The HTTP status code, default 200"
 }
 
+variable "response_templates" {
+  description = "A map specifying the templates used to transform the integration response body"
+  default = {
+    "application/xml" = <<EOF
+#set($inputRoot = $input.path('$'))
+<?xml version="1.0" encoding="UTF-8"?>
+<message>
+    $inputRoot.body
+</message>
+EOF
+  }
+}
