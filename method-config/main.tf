@@ -10,10 +10,7 @@ resource "aws_api_gateway_resource" "resource" {
   path_part   = var.resource_path_part
 }
 
-// aws_api_gateway_method
 resource "aws_api_gateway_method" "method" {
-  //count = length(var.resource_path_part) > 0 ? 1 : 0
-
   rest_api_id   = var.rest_api_id
   resource_id   = local.resource_id[0]
 
@@ -31,8 +28,6 @@ resource "aws_api_gateway_method" "method" {
 }
 
 resource "aws_api_gateway_method_response" "method_response" {
-  //count = length(var.resource_path_part) > 0 ? 1 : 0
-
   http_method = var.http_method
   resource_id = local.resource_id[0]
   rest_api_id = var.rest_api_id
@@ -59,7 +54,7 @@ resource "aws_api_gateway_integration" "integration" {
   uri                     = var.uri
 }
 
-resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
+resource "aws_api_gateway_integration_response" "integration_response" {
   rest_api_id             = var.rest_api_id
   resource_id             = local.resource_id[0]
   http_method             = var.http_method
