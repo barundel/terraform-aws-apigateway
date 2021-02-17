@@ -52,6 +52,7 @@ resource "aws_api_gateway_integration" "integration" {
   integration_http_method = var.integration_http_method
   type                    = var.type
   uri                     = var.uri
+  credentials             = var.integration_credentials
 }
 
 resource "aws_api_gateway_integration_response" "integration_response" {
