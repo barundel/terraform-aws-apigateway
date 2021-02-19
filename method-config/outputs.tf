@@ -12,3 +12,7 @@ output "http_method" {
   value = concat(aws_api_gateway_method.method.*.http_method, [""])[0]
   description = "HTTP Method of the api gateway method"
 }
+
+output "invoke_url" {
+  value = concat(aws_api_gateway_deployment.deployment.*.invoke_url, [""])[0]
+}
